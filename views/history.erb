@@ -1,10 +1,48 @@
-<h1>History of <a href="/<%= @page.basename %>"><%= @page.basename %></a></h1>
-
-<div class="sub_nav">
-  <a href="/<%= @page.basename %>" class="nav_link">current</a> &bull;
-  <a href="/e/<%= @page.basename %>" class="nav_link">edit</a>
+<ul id="history" class="page_nav">
+  <li class="page_tab_name">
+    <a href="/<%= @page.basename %>"><%= @page.title.capitalize %></a>
+  </li>
+  <li class="page_tab_history">
+    <a href="/h/<%= @page.basename %>">History</a>
+  </li>
+  <% if !params[:rev] %>
+  <li class="page_tab_edit">
+    <a href="/e/<%= @page.basename %>">Edit</a>
+  </li>
+  <% end %>
+  <li class="no_tab">
+    edited: 
+    <span class="sub_nav details">
+      <script type="text/javascript">
+        document.write(time_ago_in_words(<%= @page.updated_at.for_time_ago_in_words %>) + ' ago');
+      </script>
+   
+      <!--
+      <%= $repo.current_branch %> branch
+      --> 
+    </span>
+  </li>
+</ul>
+<% if params[:rev] %>
+<div class="info_msg">
+  <div class="icon"><img src="/img/information.png" alt="Information" /></div>
+  <p>You are currently browsing the history of this page. You can
+    <% if @page.previous_commit %>
+      <a href="/h/<%= @page.basename %>/<%= @page.previous_commit %>">go back further</a>
+    <% else %>
+      <span class="link_disabled">go back further</span>
+    <% end %>
+     or 
+    <% if @page.next_commit %>
+      <a href="/h/<%= @page.basename %>/<%= @page.next_commit %>">advance in time</a>.
+    <% else %>
+      <span class="link_disabled">advance in time</span>.
+    <% end %>
+  </p>
 </div>
+<% end %>
 
+<% if !params[:rev] %>
 <div class="content">
   <ul>
     <% @page.history.each do |c| %>
@@ -21,3 +59,6 @@
     <% end %>
   </ul>
 </div>
+<% else %>
+<div class="content"><%= @page.body %></div>
+<% end %>

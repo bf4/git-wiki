@@ -63,7 +63,7 @@ end
 
 get '/h/:page/:rev', OPTS_RE do
   @page = Page.new(params[:page], params[:rev])
-  show :show, "#{@page.title} (version #{params[:rev]})"
+  show :history, "#{@page.title} (version #{params[:rev]})"
 end
 
 get '/h/:page', OPTS_RE do
