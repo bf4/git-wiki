@@ -1,6 +1,6 @@
 # git-wiki #
 
-A wiki engine that uses Git repository as its data store and sinatra as its web framework
+A simple wiki engine using a Git repository as its data store and sinatra as its web framework.
 
 ## Required gems ##
 
@@ -16,9 +16,9 @@ A wiki engine that uses Git repository as its data store and sinatra as its web 
 
 ## Getting started ##
 
-    export WIKI_HOME=~/mywiki # governs where wiki is stored, defaults ~/wiki
+    export WIKI_HOME=~/mywiki # governs where wiki is stored, defaults to deploy/var/repo/wiki
     cd git-wiki
-    git submodule init
+    git submodule init 
     git submodule update
 
     cd ./sinatra;
@@ -51,13 +51,14 @@ See config files on deploy directory and review these links below.
 [Deploying Sinatra with Thin]: http://www.gittr.com/index.php/archive/deploying-sinatra-via-thin-and-lighttpd/
 [Installing Nginx on Ubuntu]: http://articles.slicehost.com/2008/5/13/ubuntu-hardy-installing-nginx-via-aptitude
 
+## Authors
 
+Originally by Simon Rozet (http://atonie.org/2008/02/git-wiki)
 
-
-
-
-
-
-
-
-
+Modified by:
+ - Alex Payne (http://www.al3x.net)
+ - Jesse Andrews (http://www.overstimulate.com)
+ - Timoni Grone (http://www.timoni.org) - stylesheet and design aid
+ - Scott Chacon (http://jointheconversation.org) - ruby-git migration
+ - Jeff Barczewski
+ - Ontje Helmich (owner of this fork)
