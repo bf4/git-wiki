@@ -2,3 +2,4 @@
 .DS_Store
 deploy/var/*
 deploy/log/*
+.yardoc/*
