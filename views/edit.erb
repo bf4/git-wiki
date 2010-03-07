@@ -17,9 +17,11 @@
   <li class="page_tab_name">
     <a href="/<%= @page.basename %>"><%= @page.title.capitalize %></a>
   </li>
+  <% if @page.tracked? %>
   <li class="page_tab_history">
     <a href="/h/<%= @page.basename %>">History</a>
   </li>
+  <% end %>
   <% if !params[:rev] %>
   <li class="page_tab_edit">
     <a href="/e/<%= @page.basename %>">Edit</a>
@@ -40,13 +42,7 @@
 </ul>
 
 <div class="sub_nav">
-  <a href="/<%= @page.basename %>" class="nav_link">back</a>
-  &bull; <a href="/a/file/upload/<%= @page.basename %>" class="nav_link">attach</a>
-
-  <% if @page.tracked? %>
-    &bull; <a href="/h/<%= @page.basename %>" class="nav_link">history</a>
-  <% end %>
-
+  <a href="/a/file/upload/<%= @page.basename %>" class="nav_link">attach</a>
   &bull; <a id="delete_link" href="#" class="nav_link">delete</a>
 
   <% if files = @page.attachments %>
@@ -73,9 +69,6 @@
 
 <div class="content">
   <div id="editor-choices">
-    <a id="editor-none" href="#" class="hide">Hide Markdown toolbar</a>
-    <a id="editor-markdown" href="#">Show Markdown toolbar</a>
-    |
     <a id="markdown-quickref-show" href="#">Show Markdown Quickref</a>
     <a id="markdown-quickref-hide" href="#" class="hide">Hide Markdown Quickref</a>
   </div>
@@ -133,25 +126,8 @@
       return false;
     });
 
-
-    //editor-selection
-
-    $("#editor-none").click(function(e){
-      $("#edit_textarea").markItUpRemove();
-      $(this).hide();
-      $("#editor-markdown").show();
-      return false;
-    });
-
-    $("#editor-markdown").click(function(e){
-      $("#edit_textarea").markItUp(markItUpMarkdownSettings);
-      $(this).hide();
-      $("#editor-none").show();
-      return false;
-    });
-
     //markdown quickref toggle
-
+    
     $("#markdown-quickref-show").click(function(e){
       $("#markdown-quickref").show();
       $(this).hide();
@@ -165,8 +141,7 @@
       $("#markdown-quickref-show").show();
       return false;
     });
-
-
+    
   });
 
   function calc_link(name, url, image){

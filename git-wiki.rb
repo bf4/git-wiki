@@ -40,7 +40,7 @@ end
 
 get '/e/:page', OPTS_RE do
   @page = Page.new(params[:page])
-  show :edit, "Editing #{@page.title}", { :markitup => true }
+  show :edit, "Editing #{@page.title}"
 end
 
 post '/e/:page', OPTS_RE do
@@ -182,7 +182,6 @@ get '/a/search' do
 end
 
 # file upload attachments
-
 get '/a/file/upload/:page', OPTS_RE do
   @page = Page.new(params[:page])
   show :attach, 'Attach File for ' + @page.title
@@ -248,13 +247,13 @@ get '/:page', OPTS_RE do
 end
 
 
-# support methods
-
+# Generates a complete URL for a given page. It looks up rack's environment to retrieve correct protocol and hostname.
+#
+# @param [String] page page you want the URL for.
+# @return [String] the URL for page.
 def page_url(page)
   "#{request.env["rack.url_scheme"]}://#{request.env["HTTP_HOST"]}/#{page}"
 end
-
-
 
 private
 
@@ -263,9 +262,9 @@ private
     @layout_options = layout_options
     erb(template)
   end
-
+  
+  # adds meta file to repo so we have somthing to commit initially.
   def touchfile
-    # adds meta file to repo so we have somthing to commit initially
     $repo.chdir do
       f = File.new(".meta",  "w+")
       f.puts($repo.current_branch)
@@ -274,7 +273,10 @@ private
     end
   end
 
+  # concat the default homepage to given input. foo becomes foo/index foo/ becomes foo/index
+  #
+  # @param [String] name
+  # @return [String] 
   def concat_homepage(name)
-    # concat the homepage to the name ex. foo becomes foo/index foo/ becomes foo/index
     File.join(name, HOMEPAGE)
   end
