@@ -27,12 +27,6 @@ h1 {
   margin: 24px 0 8px 0;
 }
 
-img {
-  margin: 4px 2px 0px 2px;
- /* clear: right;
-  float: right; */
-}
-
 input[type=text] {
   border: 1px solid #ccc;
   font-family: Helvetica, Arial, "Deja Vu Sans", "Bitstream Vera Sans", sans-serif;
@@ -74,7 +68,7 @@ td {
 textarea {
   border: 1px solid #ccc;
   font-family: "Deja Vu Sans Mono", "Bitstream Vera Sans Mono", "Inconsolata", "Consolas", monospace;
-  font-size: .9em;
+  font-size: 1em;
   padding: 5px;
 }
 
@@ -229,24 +223,59 @@ ul.page_nav li.no_tab {
   font-weight: bold;
 }
 
-span.detail {
-        color: #888;
-        font-size: .85em;
-}
-
-div.attach-options {
-        margin-left: 10px;
-        margin-bottom: 10px;
-        font-size: .85em;
-        color: #888;
-}
-
 #attachments {
   display: none;
+  margin: 6px 0 0 0;
+  background-color: #fff;
 }
 
 #hideAttachments {
   display: none;
+}
+
+div.att_item {
+  height: 24px;
+  line-height: 24px;
+  margin: 2px 0;
+  border: 1px solid transparent;
+}
+
+div.att_item:hover {
+  border: 1px solid #aaa;
+}
+
+div.att_icon {
+  padding: 3px 3px 0 5px;
+  height: 24px;
+  line-height: 24px;
+  float: left;
+}
+
+div.att_icon img {
+  vertical-align: text-bottom;
+}
+
+div.att_name {
+  float: left;
+  width: 200px;
+}
+
+div.att_detail {
+  margin-left: 5px;
+  float: left;
+  color: #888;
+  font-size: .85em;
+}
+
+div.att_options {
+  float: right;
+  font-size: .85em;
+  color: #888;
+  height: 22px;
+}
+
+div.att_options img {
+  padding: 3px 3px 0 0;
 }
 
 #container {
@@ -294,34 +323,71 @@ div.attach-options {
 
 #top_nav, form { margin-bottom: 0; }
 
-div.info_msg {
+div.msg {
   margin: 1em;
   border: 1px solid #fafafa;
   padding: 0.5em;
   background-color: #5e84b3;
-  color: #eff3f8;
   color: #d4ddea;
   font-size: 0.9em;
 }
 
-div.info_msg a, div.info_msg a:visited {
-  color: #fff;
-  font-style: italic;
-}
-
-div.info_msg span.link_disabled {
-  color: #9eb5d1;
-  text-decoration: line-through;
-  font-style: italic;
-}
-
-div.info_msg img {
+div.msg div.msg_icon {
   float: left;
   position: relative;
   top: -1px;
 }
 
-div.info_msg p {
+div.msg p {
   margin-left: 0.2em;
   display: inline;
 }
+
+div.attach {
+  background-color: #dee5ef;
+  border: 1px solid #c0cfe5;
+  color: #666;
+}
+
+div.info {
+  background-color: #5e84b3;
+  color: #d4ddea;
+}
+
+div.info a, div.info a:visited {
+  color: #fff;
+  font-style: italic;
+}
+
+div.info span.link_disabled {
+  color: #9eb5d1;
+  text-decoration: line-through;
+  font-style: italic;
+}
+
+a.button {
+  border: 1px solid transparent;
+  padding: 0 5px 0 3px;
+  height: 22px;
+  line-height: 24px;
+  margin: 0;
+  text-decoration: none;
+  display: block;
+  color: #333;
+}
+
+a.button:hover {
+  border: 1px solid #b1adad;
+  background: url(/img/bg_btn.png) repeat-x;
+  color: #444;
+  text-decoration: none;
+}
+
+a.button img {
+  position: relative;
+  top: 3px;
+  padding-right: 3px;
+  margin: 0;
+}
+
+.clear { clear: both; }

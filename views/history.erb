@@ -26,8 +26,8 @@
   </li>
 </ul>
 <% if params[:rev] %>
-<div class="info_msg">
-  <div class="icon"><img src="/img/information.png" alt="Information" /></div>
+<div class="info msg">
+  <div class="msg_icon"><img src="/img/information.png" alt="Information" /></div>
   <p>You are currently browsing the history of this page. You can
     <% if @page.previous_commit %>
       <a href="/h/<%= @page.basename %>/<%= @page.previous_commit %>">go back further</a>

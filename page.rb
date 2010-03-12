@@ -228,8 +228,6 @@ class Page
     convert_markdown_to_html(markdown)
   end
 
-
-
   EXT_WIKI_WORD_REGEX = /\[\[([A-Za-z0-9\.\/_ :-]+)\]\]/ unless defined?(EXT_WIKI_WORD_REGEX)
   ESCAPE_FOR_MARUKU = /[^a-zA-Z0-9\s\n\.\/]/
 
@@ -279,7 +277,6 @@ class Page
     wiki_linked(Maruku.new(escape_wiki_link(markdown)).to_html)
   end
 
-
   class Attachment
     attr_accessor :path, :page_name
     def initialize(file_path, name)
@@ -302,22 +299,53 @@ class Page
     def replace_path
       File.join('/a/file/replace', "#{@page_name}#{ATTACH_DIR_SUFFIX}", name) # /a/file/replace/foo/bar_files/file.jpg
     end
-
-    def image?
+    
+    # Determines the filetype of this attachment based on it's extension.
+    #
+    # @return [Symbol] one of :img, :doc, :txt, :script, :archive, :pdf, :ruby or :file. Defaults to :file.
+    def type
       ext = File.extname(@path)
       case ext.downcase
-      when '.png', '.jpg', '.jpeg', '.gif'; return true
-      else; return false
+        when '.png', '.jpg', '.jpeg', '.gif'; return :img
+        when '.doc'; return :doc
+        when '.txt'; return :txt
+        when '.bat', '.cmd'; return :script
+        when '.bz', '.zip', '.tar', '.tar.bz', '.7z'; return :archive
+        when '.pdf'; return :pdf
+        when '.rb', '.yaml'; return :ruby
+        else; return :file
       end
     end
 
+    def image?
+      self.type == :img ? true : false
+    end
+
+    # Returns a path to an icon based on filetype. 
+    #
+    # @return [String] the path to an icon, based on filetype (see: Attachment#type)
+    # @see Attachment#type
+    def icon
+      case self.type
+        when :img; return "/img/page_white_picture.png"
+        when :doc; return "/img/page_white_word.png"
+        when :txt; return "/img/page_white_text.png"
+        when :script; return "/img/page_white_gear.png"
+        when :archive; return "/img/page_white_zip.png"
+        when :pdf; return "/img/page_white_acrobat.png"
+        when :ruby; return "/img/page_white_ruby.png"
+        else; return "/img/page_white.png"
+      end    
+    end
+    
+    # Returns the size of the attachment in an easy-readable format (Bytes, KB or MB)
     def size
       size = File.size(@path).to_i
       case
-      when size.to_i == 1;     "1 Byte"
-      when size < 1024;        "%d Bytes" % size
-      when size < (1024*1024); "%.2f KB"  % (size / 1024.0)
-      else                     "%.2f MB"  % (size / (1024 * 1024.0))
+        when size.to_i == 1;     "1 Byte"
+        when size < 1024;        "%d Bytes" % size
+        when size < (1024*1024); "%.2f KB"  % (size / 1024.0)
+        else                     "%.2f MB"  % (size / (1024 * 1024.0))
       end.sub(/([0-9])\.?0+ /, '\1 ' )
     end
   end

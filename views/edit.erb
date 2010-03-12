@@ -12,7 +12,6 @@
     });
   });
 </script>
-
 <ul id="edit" class="page_nav">
   <li class="page_tab_name">
     <a href="/<%= @page.basename %>"><%= @page.title.capitalize %></a>
@@ -33,41 +32,52 @@
       <script type="text/javascript">
         document.write(time_ago_in_words(<%= @page.updated_at.for_time_ago_in_words %>) + ' ago');
       </script>
-   
       <!--
       <%= $repo.current_branch %> branch
       --> 
     </span>
   </li>
 </ul>
-
-<div class="sub_nav">
-  <a href="/a/file/upload/<%= @page.basename %>" class="nav_link">attach</a>
-  &bull; <a id="delete_link" href="#" class="nav_link">delete</a>
-
+<div class="attach msg">
+  <div class="msg_icon"><img src="/img/attach.png" alt="Attachment" /></div>
+  <p>
+  <% if @page.attachments %>
+    This page has attachments 
+    <a id="showAttachments" class="nav_link" href="#">(show)</a>
+    <a id="hideAttachments" class="nav_link" href="#">(hide)</a>
+  <% else %>
+    This page currently doesn't have attachments.
+  <% end %>
+  </p>
+  <a class="button" style="float: right;" href="/a/file/upload/<%= @page.basename %>"><img src="/img/add.png" alt="attach" title="Upload new attachment" />Add attachment</a>
+  
   <% if files = @page.attachments %>
-    <span id="attachmentsLabel">
-      &bull; Attachments
-      <a id="showAttachments" class="nav_link" href="#">(show)</a>
-      <a id="hideAttachments" class="nav_link" href="#">(hide)</a>
-    </span>
-    <div id="attachments">
+  <div id="attachments">
     <% files.each do |file| %>
-      <div class="attachment_item"><a href="<%= file.link_path %>"><%= file.name %></a>
-        <span class="detail">(<%= file.size %>)</span> 
-        <div class="attach-options">
-          <a class="delete_attachment" href="<%= file.delete_path %>" aname="<%= file.name %>">delete</a>
-          &bull; <a class="replace_attachment" href="<%= file.replace_path %>" aname="<%= file.name %>">replace</a>
-          &bull; <a href="<%= file.link_path %>">download</a>
-          &bull; <a href="#" class="replace" name="<%= file.name.unwiki_filename %>" url="<%= file.link_path %>" image="<%= (file.image?) ? true : false %>">insert &#187;</a>
-        </div>
+    <div class="att_item">
+      <div class="att_icon"><img src="<%= file.icon %>" title="<%= file.type %>" alt="<%= file.type %>" /></div>
+      <div class="att_name"><a href="<%= file.link_path %>"><%= file.name %></a></div>
+      <div class="att_detail"><%= file.size %></div>
+      <div class="att_options">
+        <a class="delete_attachment" href="<%= file.delete_path %>" aname="<%= file.name %>">
+          <img src="/img/bin_closed.png" title="delete this attachment" alt="delete" />
+        </a>
+        <a class="replace_attachment" href="<%= file.replace_path %>" aname="<%= file.name %>">
+          <img src="/img/page_white_link.png" title="replace this attachment" alt="replace" />
+        </a>
+        <a href="#" class="replace" name="<%= file.name.unwiki_filename %>" url="<%= file.link_path %>">
+          <img src="/img/page_white_put.png" title="insert at cursor" alt="insert" />
+        </a>
       </div>
-    <% end %>
+      <br class="clear" />
     </div>
+    <% end %>
+  </div>
   <% end %>
 </div>
 
 <div class="content">
+  <a style="float: right;" class="button" id="delete_link" href="#" class="nav_link"><img src="/img/delete.png" desc="Delete this page" alt="delete" />Delete this page</a>
   <div id="editor-choices">
     <a id="markdown-quickref-show" href="#">Show Markdown Quickref</a>
     <a id="markdown-quickref-hide" href="#" class="hide">Hide Markdown Quickref</a>
@@ -104,7 +114,7 @@
 
     //delete_link onclick posts a delete of page
     $("#delete_link").click(function(e){
-      if(confirm("Delete <%= @page.basename %>")){
+      if(confirm("Do you really want to delete page: <%= @page.basename %>?")){
         $.post("/delete/<%= @page.basename %>", "", function(data, textStatus){
           $("#messages").text(data).fadeIn(4000, function(){
             document.location = "/"; //redirect to top
