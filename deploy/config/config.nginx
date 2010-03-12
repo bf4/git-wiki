@@ -1,15 +1,15 @@
 upstream dev-wiki {
-        server unix:/var/www/dev-wiki/git-wiki/log/thin.0.sock;        
-	server unix:/var/www/dev-wiki/git-wiki/log/thin.1.sock;        
-	server unix:/var/www/dev-wiki/git-wiki/log/thin.2.sock;
+  server unix:/path/to/git-wiki/deploy/var/sock/thin.0.sock;        
+	server unix:/path/to/git-wiki/deploy/var/sock/thin.1.sock;        
+	server unix:/path/to/git-wiki/deploy/var/sock/thin.2.sock;
 }
 
 server {
             listen   80;
             server_name rtpdev1 rtpdev1.rgare.net;
 
-            access_log /var/www/dev-wiki/git-wiki/log/access.log;
-            error_log /var/www/dev-wiki/git-wiki/log/error.log;
+            access_log /path/to/git-wiki/deploy/log/access.log;
+            error_log /path/to/git-wiki/deploy/log/error.log;
 
             root   /var/www/dev-wiki/content/;
             index  index.html;

@@ -1,22 +1,21 @@
 # git-wiki #
 
-A simple wiki engine using a Git repository as its data store and sinatra as its web framework.
+A simple wiki engine using git and sinatra.
 
-## Required gems ##
+## Required gems
 
 - sinatra
 - git
 - grit
 - maruku
 
-## Required software ##
+## Required software
 
 - git
 
+## Getting started
 
-## Getting started ##
-
-    export WIKI_HOME=~/mywiki # governs where wiki is stored, defaults to deploy/var/repo/wiki
+    export WIKI_HOME=~/mywiki # governs where wiki is stored, defaults to deploy/var/repo
     cd git-wiki
     git submodule init 
     git submodule update
@@ -28,37 +27,28 @@ A simple wiki engine using a Git repository as its data store and sinatra as its
 
     ruby git-wiki.rb
 
-## Running in production ##
+## Running in production
 
 ### Running single mongrel
 
-    ruby git-wiki.rb -e production [-p 8080] # optionally set port
+    ruby git-wiki.rb -e production [-p 80] # optionally set port
 
-### Using thin, rack, and nginx
+## Paths
 
-See config files on deploy directory and review these links below.
+/deploy/config
+/deploy/var
+/deploy/log
 
-- [Setting up Thin on Ubuntu][]
-- [Deploying Sinatra with Thin][]
-- [Installing Nginx on Ubuntu][]
-- [Setting up Nginx with Thin][]
-- [Thin Usage][] shows how to use unix sockets with nginx
-
-
-[Thin Usage]: http://code.macournoyer.com/thin/usage/
-[Setting up Thin on Ubuntu]: http://articles.slicehost.com/2008/5/6/ubuntu-hardy-thin-web-server-for-ruby
-[Setting up Nginx with Thin]: http://articles.slicehost.com/2008/5/27/ubuntu-hardy-nginx-rails-and-thin
-[Deploying Sinatra with Thin]: http://www.gittr.com/index.php/archive/deploying-sinatra-via-thin-and-lighttpd/
-[Installing Nginx on Ubuntu]: http://articles.slicehost.com/2008/5/13/ubuntu-hardy-installing-nginx-via-aptitude
-
-## Authors
+## Authors ##
 
 Originally by Simon Rozet (http://atonie.org/2008/02/git-wiki)
 
 Modified by:
- - Alex Payne (http://www.al3x.net)
- - Jesse Andrews (http://www.overstimulate.com)
- - Timoni Grone (http://www.timoni.org) - stylesheet and design aid
- - Scott Chacon (http://jointheconversation.org) - ruby-git migration
- - Jeff Barczewski
- - Ontje Helmich (owner of this fork)
+- Alex Payne (http://www.al3x.net)
+- Jesse Andrews (http://www.overstimulate.com)
+- Timoni Grone (http://www.timoni.org) - stylesheet and design aid
+- Scott Chacon (http://jointheconversation.org) - ruby-git migration
+- Jeff Barczewski
+- Ontje Helmich (owner of this fork)
+
+Icons from Mark James: http://www.famfamfam.com/lab/icons/silk/
